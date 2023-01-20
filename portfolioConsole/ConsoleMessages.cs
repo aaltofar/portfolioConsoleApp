@@ -66,6 +66,28 @@ Type [H] any time to show commands.");
             case "h":
                 break;
             case "p":
+                int index = 0;
+                Console.WriteLine();
+                Console.WriteLine("Here is a list of all my projects: ");
+                foreach (var project in ProjectLogic.ProjectList)
+                {
+                    Console.WriteLine($"[{index}] " + project.Name);
+                    index++;
+                }
+                Console.WriteLine("To view any project, input a corresponding project number: ");
+                string projCommandTxt = Console.ReadLine();
+                bool projCommand = int.TryParse(projCommandTxt, out int projCommandnum);
+                while (!projCommand)
+                {
+                    ErrorMsg();
+                    Console.ReadLine();
+                    projCommandTxt = Console.ReadLine();
+                    projCommand = int.TryParse(projCommandTxt, out projCommandnum);
+                }
+                if (projCommand)
+                {
+                    ProjectLogic.ProjectList[projCommandnum].OpenBrowser();
+                }
                 break;
             case "r":
                 break;

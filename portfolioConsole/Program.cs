@@ -3,7 +3,7 @@
 using portfolioConsole;
 using System.Diagnostics;
 
-
+ProjectLogic.GetProjectInfo();
 
 Messages.TextLogo();
 Messages.WelcomeMsg();

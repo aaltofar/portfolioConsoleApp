@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 
 namespace portfolioConsole
 {
@@ -17,11 +18,11 @@ namespace portfolioConsole
             Name = projName;
             Link = projLink;
         }
-        private void OpenBrowser()
+        public void OpenBrowser()
         {
             ProcessStartInfo ps = new ProcessStartInfo
             {
-                FileName = Link,
+                FileName = "www.github.com" + Link,
                 UseShellExecute = true
             };
             Process.Start(ps);
