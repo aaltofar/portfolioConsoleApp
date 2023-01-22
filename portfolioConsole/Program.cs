@@ -1,16 +1,16 @@
 ﻿
-
 using portfolioConsole;
 using System.Diagnostics;
+//dependency injection
+//project service som egen klasse
+var projectService = new ProjectService();
 
-ProjectLogic.GetProjectInfo();
 
 Messages.TextLogo();
 Messages.WelcomeMsg();
 Messages.CmdList();
 
-
 while (true)
 {
-    Messages.CmdSwitch();
+    Messages.CmdSwitch(projectService);
 }

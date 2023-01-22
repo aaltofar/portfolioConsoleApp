@@ -10,14 +10,10 @@ namespace portfolioConsole
 {
     internal class ProjectModel
     {
-        public string Name { get; private set; }
-        public string Link { get; private set; }
+        public string? Name { get; init; }
+        public string? Link { get; init; }
 
-        public ProjectModel(string projName, string projLink)
-        {
-            Name = projName;
-            Link = projLink;
-        }
+      
         public void OpenBrowser()
         {
             ProcessStartInfo ps = new ProcessStartInfo

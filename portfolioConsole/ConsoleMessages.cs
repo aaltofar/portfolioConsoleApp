@@ -55,8 +55,9 @@ $$/      $$/ $$/   $$/ $$$$$$/ $$/                 $/      $$$$$$/ $$/  $$$$$$/
 Type [H] any time to show commands.");
     }
 
-    public static void CmdSwitch()
+    internal static void CmdSwitch(IProjectService projectService)
     {
+        var projectList = projectService.GetProjectInfo();
 
         TypeCmd();
         Console.Write("Command: ");
@@ -66,13 +67,11 @@ Type [H] any time to show commands.");
             case "h":
                 break;
             case "p":
-                int index = 0;
                 Console.WriteLine();
                 Console.WriteLine("Here is a list of all my projects: ");
-                foreach (var project in ProjectLogic.ProjectList)
+                foreach (var (project, i) in projectList.Select((p,i)=> (p,i)))
                 {
-                    Console.WriteLine($"[{index}] " + project.Name);
-                    index++;
+                    Console.WriteLine($"[{i}] " + project.Name);
                 }
                 Console.WriteLine("To view any project, input a corresponding project number: ");
                 string projCommandTxt = Console.ReadLine();
@@ -86,7 +85,7 @@ Type [H] any time to show commands.");
                 }
                 if (projCommand)
                 {
-                    ProjectLogic.ProjectList[projCommandnum].OpenBrowser();
+                    projectList[projCommandnum].OpenBrowser();
                 }
                 break;
             case "r":

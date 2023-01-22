@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using HtmlAgilityPack;
 
 namespace portfolioConsole;
-
-internal class ProjectLogic
+internal interface IProjectService
 {
+    List<ProjectModel> GetProjectInfo();
+}
+internal class ProjectService : IProjectService
+{
+   
 
-    public static List<ProjectModel> ProjectList = new List<ProjectModel>();
-
-    public static void GetProjectInfo()
+    public List<ProjectModel> GetProjectInfo()
     {
+        var result = new List<ProjectModel>();
+
         var html = @"https://github.com/aaltofar?tab=stars";
 
         HtmlWeb web = new HtmlWeb();
@@ -30,18 +35,25 @@ internal class ProjectLogic
                 string linkRaw = nNode.OuterHtml;
                 var linkSplit = linkRaw.Split('"');
                 string projectLink = linkSplit[1];
+
                 var str = nNode.WriteContentTo();
                 var newStr = str.Split('>').ToArray();
                 var projectName = newStr[2];
-                ProjectList.Add(MakeProject(projectName, projectLink));
+
+                result.Add(new ProjectModel() 
+                { 
+                    Link = projectLink,
+                    Name = projectName
+                });
             }
         }
+        return result;
     }
 
-    public static ProjectModel MakeProject(string name, string link)
-    {
-        var newProject = new ProjectModel(projName: name, projLink: link);
-        return newProject;
-    }
+    //public static ProjectModel MakeProject(string name, string link)
+    //{
+    //    var newProject = new ProjectModel(projLink: link, projName: name);
+    //    return newProject;
+    //}
 }
 
